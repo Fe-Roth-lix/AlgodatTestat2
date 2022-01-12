@@ -1,22 +1,16 @@
-//import classes and packages  
-import java.util.Scanner;
-
-//creating a node for the red-black tree. A node has left and right child, element and color of the node  
-class RedBlackNode
-{
+//Node for the Red-Black-Tree
+class RedBlackNode {
     RedBlackNode leftChild, rightChild;
-    int element;
-    int color;
+    int element; //Value of Node
+    int color; //color = 0 -> red, color = 1 -> black
 
     //constructor to set the value of a node having no left and right child  
-    public RedBlackNode(int element)
-    {
-        this( element, null, null );
+    public RedBlackNode(int element) {
+        this(element, null, null);
     }
 
     //constructor to set value of element, leftChild, rightChild and color  
-    public RedBlackNode(int element, RedBlackNode leftChild, RedBlackNode rightChild)
-    {
+    public RedBlackNode(int element, RedBlackNode leftChild, RedBlackNode rightChild) {
         this.element = element;
         this.leftChild = leftChild;
         this.rightChild = rightChild;
@@ -25,20 +19,20 @@ class RedBlackNode
 }
 
 //create class CreateRedBlackTree for creating red-black tree  
-class CreateRedBlackTree
-{
-    private static RedBlackNode nullNode;   //define null node  
+class CreateRedBlackTree {
+    private static RedBlackNode nullNode;   //define null node
     private RedBlackNode current;   //define current node   
     private RedBlackNode parent;    //define parent node   
-    private RedBlackNode header;   // define header node  
+    private RedBlackNode root;   // define header node
     private RedBlackNode grand; //define grand node  
     private RedBlackNode great; //define great node  
 
-    //create two variables, i.e., RED and Black for color and the values of these variables are 0 and 1 respectively.   
+    //constants RED and BLACK for nodecolors
     static final int RED   = 0;
     static final int BLACK = 1;
 
-    // using static initializer for initializing null Node  
+
+    //set attributes of the nullNode even before the main method is executed
     static
     {
         nullNode = new RedBlackNode(0);
@@ -47,35 +41,21 @@ class CreateRedBlackTree
     }
 
 
-    // Constructor for creating header node   
-    public CreateRedBlackTree(int header)
-    {
-        this.header = new RedBlackNode(header);
-        this.header.leftChild = nullNode;
-        this.header.rightChild = nullNode;
+    // Constructor for creating root node
+    public CreateRedBlackTree(int root) {
+        this.root = new RedBlackNode(root);
+        this.root.leftChild = nullNode;
+        this.root.rightChild = nullNode;
     }
 
-    // create removeAll() for making the tree logically empty  
-    public void removeAll()
-    {
-        header.rightChild = nullNode;
-    }
 
-    //create method checkEmpty() to check whether the tree is empty or not  
-    public boolean checkEmpty()
-    {
-        return header.rightChild == nullNode;
-    }
-
-    //create insertNewNode() method for adding a new node in the red black tree  
-    public void insertNewNode(int newElement )
-    {
-        current = parent = grand = header;      //set header value to current, parent, and grand node  
-        nullNode.element = newElement;          //set newElement to the element of the null node  
+    //method for adding a new node in the red black tree
+    public void insertNewNode(int newElement) {
+        current = parent = grand = root;      //set header value to current, parent, and grand node
+        nullNode.element = newElement;          //set newElement to the element of the null node
 
         //repeat statements until the element of the current node will not equal to the value of the newElement  
-        while (current.element != newElement)
-        {
+        while (current.element != newElement) {
             great = grand;
             grand = parent;
             parent = current;
@@ -88,7 +68,7 @@ class CreateRedBlackTree
                 handleColors( newElement );
         }
 
-        // insertion of the new node will be fail if will already present in the tree  
+        // insertion of the new node will fail if already present in the tree
         if (current != nullNode)
             return;
 
@@ -124,7 +104,7 @@ class CreateRedBlackTree
         }
 
         // change the color of the root node with BLACK  
-        header.rightChild.color = BLACK;
+        root.rightChild.color = BLACK;
     }
 
     //create performRotation() method to perform dbl rotation  
@@ -160,7 +140,7 @@ class CreateRedBlackTree
     // create nodesInTree() method for getting total number of nodes in a tree  
     public int nodesInTree()
     {
-        return nodesInTree(header.rightChild);
+        return nodesInTree(root.rightChild);
     }
     private int nodesInTree(RedBlackNode node)
     {
@@ -177,7 +157,7 @@ class CreateRedBlackTree
     // create searchNode() method to get desired node from the Red-Black tree  
     public boolean searchNode(int value)
     {
-        return searchNode(header.rightChild, value);
+        return searchNode(root.rightChild, value);
     }
     private boolean searchNode(RedBlackNode node, int value)
     {
@@ -202,7 +182,7 @@ class CreateRedBlackTree
     //create preorderTraversal() method to perform inorder traversal  
     public void preorderTraversal()
     {
-        preorderTraversal(header.rightChild);
+        preorderTraversal(root.rightChild);
     }
     private void preorderTraversal(RedBlackNode node)
     {
@@ -220,7 +200,7 @@ class CreateRedBlackTree
     //create inorderTraversal() method to perform inorder traversal   
     public void inorderTraversal()
     {
-        inorderTraversal(header.rightChild);
+        inorderTraversal(root.rightChild);
     }
     private void inorderTraversal(RedBlackNode node)
     {
@@ -238,7 +218,7 @@ class CreateRedBlackTree
     //create postorderTraversal() method to perform inorder traversal   
     public void postorderTraversal()
     {
-        postorderTraversal(header.rightChild);
+        postorderTraversal(root.rightChild);
     }
     private void postorderTraversal(RedBlackNode node)
     {
@@ -255,6 +235,8 @@ class CreateRedBlackTree
 }
 
 //create class RedBlackTreeExample having main() method  
+
+/*
 class RedBlackTreeExample
 {
     //main() method start  
@@ -323,3 +305,4 @@ class RedBlackTreeExample
         } while (choice == 'Y'|| choice == 'y');
     }
 }
+*/

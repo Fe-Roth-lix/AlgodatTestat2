@@ -17,10 +17,6 @@ public class ReBlTr {
       this.color = color;
     }
 
-    @Override
-    public String toString() {
-      return key + ": value " + (color ? "R" : "B");
-    }
   }
 
   private static final boolean RED = true;
