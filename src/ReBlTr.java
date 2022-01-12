@@ -1,15 +1,17 @@
 import java.util.BitSet;
 import java.util.Random;
 
-public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
+public class ReBlTr {
 
+  //class to generate a Node for the Tree
   private class Node {
-    private Node left, right;
-    private boolean color;
-    private TKey key;
-    private TValue value;
+    private Node left;
+    private Node right;
+    private boolean color; //true = red, false = black
+    private int key;
+    private int value;
 
-    public Node(TKey key, TValue value, boolean color) {
+    public Node(int key, int value, boolean color) {
       this.key = key;
       this.value = value;
       this.color = color;
@@ -25,21 +27,19 @@ public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
   private static final boolean BLACK = false;
   private Node root;
 
-  public TValue get(TKey key) {
+  public int get(int key) {
     Node node = root;
 
     while (node != null) {
-      int cmp = key.compareTo(node.key);
-      if (cmp < 0) {
+      if (key < node.key) {
         node = node.left;
-      } else if (cmp > 0) {
+      } else if (key > node.key) {
         node = node.right;
-      } else if (cmp == 0) {
+      } else if (key == node.key) {
         return node.value;
       }
     }
-
-    return null;
+    return Integer.MIN_VALUE;
   }
 
   private boolean isRed(Node node) {
@@ -63,7 +63,7 @@ public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
     return x;
   }
 
-  private Node insert(Node node, TKey key, TValue value, boolean isRed) {
+  private Node insert(Node node, int key, int value, boolean isRed) {
 
     if (node == null) {
       return new Node(key, value, RED); // RED was isRed before
@@ -75,9 +75,8 @@ public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
       node.right.color = BLACK;
     }
 
-    int cmp = key.compareTo(node.key);
 
-    if (cmp < 0) {
+    if (key < node.key) {
       node.left = insert(node.left, key, value, BLACK); // /*BLACK was
       // isRed
       // before*/
@@ -108,13 +107,12 @@ public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
     return node;
   }
 
-  public void insert(TKey key, TValue value) {
+  public void insert(int key, int value) {
     this.root = insert(this.root, key, value, BLACK);
     this.root.color = BLACK;
   }
 
   private void printDotGraph() {
-    System.out.println("//2-3-4 Red-Black Tree in graphviz dot-Format:");
     printDotNode(root, true, 0);
   }
 
@@ -166,8 +164,8 @@ public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
 
   private static void outputRedBlackTreeWithRandomElements(int elementCount,
                                                            int seed, int maxRandomNumberExclusive) {
-    System.out.println("//RedBack_" + elementCount + "_elements");
-    ReBlTr<String, String> tree = new ReBlTr<String, String>();
+
+    ReBlTr tree = new ReBlTr();
     Random random = new Random(seed);
 
     BitSet alreadySeen = new BitSet(maxRandomNumberExclusive);
@@ -177,7 +175,7 @@ public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
       if (!alreadySeen.get(value)) {
         alreadySeen.set(value);
         i++;
-        tree.insert(String.valueOf(value), "V-" + String.valueOf(value));
+        tree.insert(value, value);
       }
     }
 
@@ -185,7 +183,7 @@ public class ReBlTr<TKey extends Comparable<TKey>, TValue> {
   }
 
   public static void main(String[] args) {
-    outputRedBlackTreeWithRandomElements(15, 1234, 100);
+    outputRedBlackTreeWithRandomElements(15, 545, 100);
     //outputRedBlackTreeWithRandomElements(100, 4711, 1000);
     //outputRedBlackTreeWithRandomElements(350, 4711, 1000);
   }
