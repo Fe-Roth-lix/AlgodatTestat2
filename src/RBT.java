@@ -1,8 +1,6 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.BitSet;
-import java.util.Random;
 
 public class RBT {
 
@@ -11,8 +9,9 @@ public class RBT {
     private Node left;
     private Node right;
     private boolean color; //true = red, false = black
-    private int value;
+    private int value; //value of node in tree
 
+    // constructor for a node, value and color must be set
     public Node(int value, boolean color) {
       this.value = value;
       this.color = color;
@@ -22,7 +21,7 @@ public class RBT {
   private static final boolean RED = true;
   private static final boolean BLACK = false;
   private Node root;
-  private static int counter = 0;
+  private static int counter = 0; // counter for filewriter method to count up output names
 
   public int get(int value) {
     Node node = root;
