@@ -23,20 +23,6 @@ public class RBT {
   private Node root;
   private static int counter = 0; // counter for filewriter method to count up output names
 
-  public int get(int value) {
-    Node node = root;
-
-    while (node != null) {
-      if (value < node.value) {
-        node = node.left;
-      } else if (value > node.value) {
-        node = node.right;
-      } else if (value == node.value) {
-        return node.value;
-      }
-    }
-    return Integer.MIN_VALUE;
-  }
 
   private boolean isRed(Node node) {
     if (node == null) {
