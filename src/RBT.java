@@ -23,7 +23,6 @@ public class RBT {
   private static final boolean RED = true;
   private static final boolean BLACK = false;
 
-
   private boolean isRed(Node node) {
     //if leaf is a nil leaf, the color has to be black
     if (node == null) {
@@ -46,14 +45,11 @@ public class RBT {
     return newTopNode;
   }
 
-
   private Node internalInsert(Node node, int value, boolean isRed) {
-
     //condition for first insertion into tree
     if (node == null) {
       return new Node(value, RED);
     }
-
 
     //if both child-nodes are red, the parent node is set to red, children get black
     if (isRed(node.left) && isRed(node.right)) {
@@ -99,7 +95,6 @@ public class RBT {
     this.root.color = BLACK;
   }
 
-
   public void printDotGraph() throws IOException {
     //preparing content of dot file for export
     String output = "digraph g0 {\nnode [height=.1, style=filled];\n";
@@ -140,7 +135,6 @@ public class RBT {
     return output;
   }
 
-
   static void writeDotFile(String data) throws IOException {
     File outputFile = new File("output" + counter + ".dot");
     counter++;
@@ -153,6 +147,4 @@ public class RBT {
     writer.flush();
     writer.close();
   }
-
-
 }
